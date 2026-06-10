@@ -1,0 +1,12 @@
+services:
+  mindly:
+    build: .
+    container_name: mindly-agent
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    stdin_open: true
+    tty: true
+    command: ["python", "-m", "mindly.cli", "chat"]
