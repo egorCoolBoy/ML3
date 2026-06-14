@@ -1,0 +1,62 @@
+{
+  "benchmark": "LongMemEval-S",
+  "limit": 5,
+  "accuracy": 0.8,
+  "results": [
+    {
+      "question_id": "e47becba",
+      "question_type": "single-session-user",
+      "question": "What degree did I graduate with?",
+      "expected": "Business Administration",
+      "actual": "You graduated with a degree in Business Administration. 🎓",
+      "exact_or_substring": true,
+      "llm_judge": true,
+      "correct": true
+    },
+    {
+      "question_id": "118b2229",
+      "question_type": "single-session-user",
+      "question": "How long is my daily commute to work?",
+      "expected": "45 minutes each way",
+      "actual": "Your daily commute takes about **45 minutes each way**—so roughly an hour and a half round‑trip. 🚗💨",
+      "exact_or_substring": true,
+      "llm_judge": true,
+      "correct": true
+    },
+    {
+      "question_id": "51a45a95",
+      "question_type": "single-session-user",
+      "question": "Where did I redeem a $5 coupon on coffee creamer?",
+      "expected": "Target",
+      "actual": "I’m not sure exactly where you used the $5 coupon on coffee creamer—my records only show that you redeemed it last Sunday. If you remember the store or the brand of creamer you bought, that might help pinpoint it. Let me know if you’d like a quick reminder of where you usually shop for coffee products! 🌱",
+      "exact_or_substring": false,
+      "llm_judge": false,
+      "correct": false
+    },
+    {
+      "question_id": "58bf7951",
+      "question_type": "single-session-user",
+      "question": "What play did I attend at the local community theater?",
+      "expected": "The Glass Menagerie",
+      "actual": "You went to see *The Glass Menagerie* at the local community theater. 🎭",
+      "exact_or_substring": true,
+      "llm_judge": true,
+      "correct": true
+    },
+    {
+      "question_id": "1e043500",
+      "question_type": "single-session-user",
+      "question": "What is the name of the playlist I created on Spotify?",
+      "expected": "Summer Vibes",
+      "actual": "Your playlist on Spotify is called **“Summer Vibes.”** 🎶",
+      "exact_or_substring": true,
+      "llm_judge": true,
+      "correct": true
+    }
+  ],
+  "memory_config": {
+    "retrieval_top_k": 5,
+    "embedding_model": "intfloat/multilingual-e5-small",
+    "llm_model": "openai/gpt-oss-20b:free"
+  }
+}

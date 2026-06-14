@@ -1,0 +1,16 @@
+{"time":"2026-06-14T14:22:21.319898+07:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"C:\\Users\\ega02\\OneDrive\\Рабочий стол\\ML3\\wandb\\offline-run-20260614_142220-70yzpk6g\\logs\\debug-core.log"}
+{"time":"2026-06-14T14:22:22.0015433+07:00","level":"WARN","msg":"GraphQL client is nil, skipping feature loading"}
+{"time":"2026-06-14T14:22:22.002075+07:00","level":"INFO","msg":"created new stream","id":"70yzpk6g"}
+{"time":"2026-06-14T14:22:22.0026147+07:00","level":"INFO","msg":"stream: started","id":"70yzpk6g"}
+{"time":"2026-06-14T14:22:22.0026147+07:00","level":"INFO","msg":"handler: started","stream_id":"70yzpk6g"}
+{"time":"2026-06-14T14:22:22.0026147+07:00","level":"INFO","msg":"sender: started","stream_id":"70yzpk6g"}
+{"time":"2026-06-14T14:22:22.0026147+07:00","level":"INFO","msg":"writer: Do: started","stream_id":"70yzpk6g"}
+{"time":"2026-06-14T14:22:22.0090236+07:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2026-06-14T14:22:24.5809856+07:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2026-06-14T14:22:24.581533+07:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2026-06-14T14:22:24.5820694+07:00","level":"INFO","msg":"handler: operation stats","stats":{}}
+{"time":"2026-06-14T14:22:24.5878709+07:00","level":"INFO","msg":"stream: closing","id":"70yzpk6g"}
+{"time":"2026-06-14T14:22:24.5878709+07:00","level":"INFO","msg":"handler: closed","stream_id":"70yzpk6g"}
+{"time":"2026-06-14T14:22:24.5878709+07:00","level":"INFO","msg":"writer: Close: closed","stream_id":"70yzpk6g"}
+{"time":"2026-06-14T14:22:24.5878709+07:00","level":"INFO","msg":"sender: closed","stream_id":"70yzpk6g"}
+{"time":"2026-06-14T14:22:24.5884199+07:00","level":"INFO","msg":"stream: closed","id":"70yzpk6g"}
