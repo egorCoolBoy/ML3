@@ -7,12 +7,8 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
-data/chroma/
 data/*.db
 data/*.sqlite
-data/log_file.log
-data/eval_results/
-wandb/
 .DS_Store
 *.egg-info/
 dist/

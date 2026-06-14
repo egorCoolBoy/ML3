@@ -1,0 +1,16 @@
+{"time":"2026-06-14T15:55:18.5541174+07:00","level":"INFO","msg":"stream: starting","core version":"0.19.11","symlink path":"C:\\Users\\ega02\\OneDrive\\Рабочий стол\\ML3\\wandb\\offline-run-20260614_155517-jqjvwqsp\\logs\\debug-core.log"}
+{"time":"2026-06-14T15:55:19.3766757+07:00","level":"WARN","msg":"GraphQL client is nil, skipping feature loading"}
+{"time":"2026-06-14T15:55:19.3772077+07:00","level":"INFO","msg":"created new stream","id":"jqjvwqsp"}
+{"time":"2026-06-14T15:55:19.3772077+07:00","level":"INFO","msg":"stream: started","id":"jqjvwqsp"}
+{"time":"2026-06-14T15:55:19.3777255+07:00","level":"INFO","msg":"handler: started","stream_id":"jqjvwqsp"}
+{"time":"2026-06-14T15:55:19.3777255+07:00","level":"INFO","msg":"sender: started","stream_id":"jqjvwqsp"}
+{"time":"2026-06-14T15:55:19.3777255+07:00","level":"INFO","msg":"writer: Do: started","stream_id":"jqjvwqsp"}
+{"time":"2026-06-14T15:55:19.3878372+07:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2026-06-14T15:55:22.3163365+07:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2026-06-14T15:55:22.3163365+07:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2026-06-14T15:55:22.3177398+07:00","level":"INFO","msg":"handler: operation stats","stats":{}}
+{"time":"2026-06-14T15:55:22.3255315+07:00","level":"INFO","msg":"stream: closing","id":"jqjvwqsp"}
+{"time":"2026-06-14T15:55:22.3255315+07:00","level":"INFO","msg":"handler: closed","stream_id":"jqjvwqsp"}
+{"time":"2026-06-14T15:55:22.3255315+07:00","level":"INFO","msg":"sender: closed","stream_id":"jqjvwqsp"}
+{"time":"2026-06-14T15:55:22.3255315+07:00","level":"INFO","msg":"writer: Close: closed","stream_id":"jqjvwqsp"}
+{"time":"2026-06-14T15:55:22.3261215+07:00","level":"INFO","msg":"stream: closed","id":"jqjvwqsp"}
