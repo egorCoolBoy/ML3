@@ -91,12 +91,14 @@ class FactExtractor:
         item: dict[str, Any],
         message: str,
         session_id: str | None,
+        *,
+        strict_quote: bool = True,
     ) -> Fact | None:
         text = (item.get("text") or "").strip()
         source_quote = (item.get("source_quote") or "").strip()
         if not text:
             return None
-        if source_quote and source_quote not in message:
+        if strict_quote and source_quote and source_quote not in message:
             return None
         policy: RecallPolicy = (
             "passive_only" if item.get("recall_policy") == "passive_only" else "active"
@@ -111,6 +113,32 @@ class FactExtractor:
             source_quote=source_quote or text,
             session_id=session_id,
         )
+    def extract_from_session(
+        self,
+        user_id: str,
+        messages: list[str],
+        session_id: str | None = None,
+    ) -> list[Fact]:
+        if not messages:
+            return []
+
+        text = "\n".join(messages)
+        llm_messages = [
+            {"role": "system", "content": EXTRACTION_PROMPT},
+            {"role": "user", "content": text},
+        ]
+        try:
+            payload = self.llm.complete_json(llm_messages)
+        except Exception as exc:
+            logger.error("ошибка_извлечения_сессии user_id=%s error=%s", user_id, exc)
+            return []
+
+        facts: list[Fact] = []
+        for item in payload.get("facts", []):
+            fact = self._build_fact(user_id, item, text, session_id, strict_quote=False)
+            if fact:
+                facts.append(fact)
+        return facts
 
     def _heuristic_extract(
         self,
