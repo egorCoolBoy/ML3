@@ -52,6 +52,25 @@ class LLMClient:
         logger.debug("ответ_модели символов=%d", len(content))
         return content
 
+    def complete_json(self, messages: list[dict[str, str]], temperature: float = 0.0) -> dict[str, Any]:
+        response = self.complete(messages, temperature=temperature)
+        if not response.strip():
+            logger.error("empty_llm_response")
+            return {"facts": []}
+
+        cleaned = response.strip()
+        if cleaned.startswith("```"):
+            cleaned = cleaned.split("\n", 1)[1] if "\n" in cleaned else cleaned[3:]
+            cleaned = cleaned.rsplit("```", 1)[0].strip()
+            if cleaned.startswith("json"):
+                cleaned = cleaned[4:].strip()
+
+        try:
+            return json.loads(cleaned)
+        except json.JSONDecodeError:
+            logger.error("bad_json_from_llm=%s", cleaned[:1000])
+            return {"facts": []}
+
     def stream(self, messages: list[dict[str, str]], temperature: float = 0.7) -> Iterator[str]:
         stream = self._create(messages=messages, temperature=temperature, stream=True)
         for chunk in stream:
@@ -59,10 +78,3 @@ class LLMClient:
             if delta:
                 yield delta
 
-    def complete_json(self, messages: list[dict[str, str]], temperature: float = 0.0) -> dict[str, Any]:
-        response = self.complete(messages, temperature=temperature)
-        cleaned = response.strip()
-        if cleaned.startswith("```"):
-            cleaned = cleaned.split("\n", 1)[1]
-            cleaned = cleaned.rsplit("```", 1)[0]
-        return json.loads(cleaned)

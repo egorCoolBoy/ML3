@@ -4,6 +4,7 @@ import os
 import re
 import sys
 from pathlib import Path
+from typing import Optional
 
 import wandb
 
@@ -49,16 +50,26 @@ def exact_or_substring_match(expected: str, actual: str) -> bool:
     return expected_n in actual_n or actual_n in expected_n
 
 
-def load_dataset(path: Path | None, limit: int) -> list[dict]:
+def load_dataset(path: Optional[Path], limit: int) -> list[dict]:
     if path and path.exists():
         data = json.loads(path.read_text(encoding="utf-8"))
         return data[:limit]
 
-    from datasets import load_dataset
+    hf_path = Path.home() / ".cache" / "huggingface" / "hub"
+    cached_files = list(hf_path.rglob("longmemeval_s_cleaned.json"))
+    if cached_files:
+        data = json.loads(cached_files[0].read_text(encoding="utf-8"))
+        return data[:limit]
 
-    dataset = load_dataset("xiaowu0162/longmemeval-cleaned", split="longmemeval_s")
-    items = list(dataset)
-    return items[:limit]
+    from huggingface_hub import hf_hub_download
+
+    dataset_path = hf_hub_download(
+        repo_id="xiaowu0162/longmemeval-cleaned",
+        filename="longmemeval_s_cleaned.json",
+        repo_type="dataset",
+    )
+    data = json.loads(Path(dataset_path).read_text(encoding="utf-8"))
+    return data[:limit]
 
 
 def evaluate_item(agent: MindlyAgent, llm: LLMClient, item: dict, use_judge: bool) -> dict:
@@ -66,13 +77,26 @@ def evaluate_item(agent: MindlyAgent, llm: LLMClient, item: dict, use_judge: boo
     agent.forget(user_id, "all")
 
     for session in item.get("haystack_sessions", []):
+        user_messages = []
+
         for turn in session:
             role = turn["role"]
             content = turn["content"]
+            agent.ingest_turn(
+                user_id,
+                role,
+                content,
+                extract_facts=False,
+            )
             if role == "user":
-                agent.ingest_turn(user_id, "user", content, extract_facts=True)
-            elif role == "assistant":
-                agent.ingest_turn(user_id, "assistant", content, extract_facts=False)
+                user_messages.append(content)
+
+        facts = agent.extractor.extract_from_session(
+            user_id=user_id,
+            messages=user_messages,
+        )
+        for fact in facts:
+            agent.memory.add_fact(fact)
 
     question = item["question"]
     expected = item["answer"]
@@ -81,7 +105,6 @@ def evaluate_item(agent: MindlyAgent, llm: LLMClient, item: dict, use_judge: boo
     em = exact_or_substring_match(expected, actual)
     judged = llm_judge(llm, question, expected, actual) if use_judge else False
     correct = em or judged
-
     return {
         "question_id": item["question_id"],
         "question_type": item.get("question_type"),
